@@ -151,7 +151,8 @@ ixC = np.array(ixC)
 iyB = np.array(iyB)[::-1]
 iyC = np.array(iyC)
 
-im = ax.imshow(gridplot_cv, interpolation='spline16', cmap='YlGn',origin='lower',  aspect='auto',  extent = [0.5 - 0.025, 1.5 + 0.025, 0.6 - 1/(2*59), 1.6 + 1/(2*59)])
+im = ax.imshow(gridplot_cv, interpolation='spline16', cmap='YlGn',origin='lower',  aspect='auto',  
+	extent = [0.5 - 0.025, 1.5 + 0.025, 0.6 - 1/(2*59), 1.6 + 1/(2*59)])
 
 #clb = plt.colorbar(im, shrink=0.5)
 #clb.ax.tick_params(labelsize=12)
@@ -233,7 +234,7 @@ ax.plot(fKT2_x, fKT2, color = 'teal')
 #ax.indicate_inset_zoom(axins)
 
 #plt.tight_layout()
-plt.savefig('./fig-phasediagram-inset-cv.png', format='png',dpi = 100, bbox_inches='tight')
+#plt.savefig('./fig-phasediagram-inset-cv.png', format='png',dpi = 100, bbox_inches='tight')
 
 plt.show()
 
