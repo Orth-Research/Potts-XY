@@ -204,7 +204,7 @@ ax1.set_ylabel(r'Specific Heat per site $C_v/N$ ($\bullet$)', color='black', fon
 #print data_thermo
 #print error_thermo
 for i in range(len(N_list)):
-	ax1.errorbar(all_temps[i], all_data_therm[i], 		yerr = all_error_therm[i] , color = color_all[i], linestyle = '-',marker = markers[0], markersize = 12)
+	ax1.errorbar(all_temps[i], all_data_therm[i], yerr = all_error_therm[i] , color = color_all[i], linestyle = '-',marker = markers[0], markersize = 12)
 
 Tmin = np.min(Tmin_l)
 Tmax = np.max(Tmax_l)
@@ -232,12 +232,12 @@ ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 color = colors_size[1]
 ax2.set_ylabel(r'Spin Stiffness $\rho$ ($\star$)', color='black', fontsize = 20)
 for i in range(len(N_list)):
-	ax2.errorbar(all_temps[i], all_data_stiff[i], yerr = all_error_stiff[i],	 color = colors_size[i], linestyle = '-', marker = markers[1], markersize = 12)
+	ax2.errorbar(all_temps[i], all_data_stiff[i], yerr = all_error_stiff[i],	 color = color_all[i], linestyle = '-', marker = markers[1], markersize = 12)
 ax2.tick_params(axis='y', labelcolor='black', labelsize = 16)
 
 patches_lg = []
 for i in range(len(N_list)):
-    patches_lg.append(patches.Patch(color=colors_size[i], label='L='+str(int(N_list[i]))))
+    patches_lg.append(patches.Patch(color=color_all[i], label='L='+str(int(N_list[i]))))
 ax1.legend(handles=patches_lg, bbox_to_anchor=(0,-0.12,1,0.2), loc="lower left",
                 mode="expand", borderaxespad=0, ncol=4,fontsize = 20)
 
