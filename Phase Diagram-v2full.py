@@ -166,7 +166,7 @@ for ps in patches_cv:
 
 
 plt.xlabel('$\Delta$', fontsize=9);
-plt.ylabel('$\\mathrm{Temperature}\; T$', fontsize=9)
+plt.ylabel('$T/J$', fontsize=9)
 
 #ticks
 major_ticks_x = np.arange(0.5, 1.5 + 0.01, 0.25)

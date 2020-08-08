@@ -155,7 +155,7 @@ ax.set_ylim(y1, y2)
 
 
 plt.xlabel('$\Delta$', fontsize=9);
-plt.ylabel('$T$', fontsize=9)
+plt.ylabel('$T/J$', fontsize=9)
 
 #ticks
 major_ticks_x = np.arange(0.8, 1.15 + 0.01, 0.1)

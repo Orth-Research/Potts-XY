@@ -31,9 +31,10 @@ from scipy.optimize import differential_evolution
 import warnings
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Rectangle
+from matplotlib.lines import Line2D
 
 from matplotlib import rc
-rc('font',**{'family':'sans-serif', 'size' : 19}) #, 'sans-serif':['Arial']})
+rc('font',**{'family':'sans-serif', 'size' : 10}) #, 'sans-serif':['Arial']})
 ## for Palatino and other serif fonts use:
 #rc('font',**{'family':'serif','serif':['Palatino']})
 rc('text', usetex=True)
@@ -88,7 +89,6 @@ all_data_N = np.load('data_lowD.npy',allow_pickle=True)
 
 for n in range(len(N_list)):
     N = N_list[n]
-
 
     data_thermo = (N**2)*np.array(all_data_N[n][1])
     error_thermo = ((N))*np.array(all_data_N[n][2])
@@ -193,71 +193,90 @@ scalarMap = cmx.ScalarMappable(norm=cNorm, cmap='brg_r')
 colors_size = [scalarMap.to_rgba(i/(len(N_list)-1)) for i in range(len(N_list))]
 
 
+fig = plt.figure(figsize = (3.375, 2*2.086) )
+ax1 = plt.subplot(2,1,1)
 
-fig, ax1 = plt.subplots(figsize = (10,10))
-
-markers = [r"$\bullet$", r"$\star$"]
+#markers = [r"$\bullet$", r"$\star$"]
+markers = [r"$\bullet$", r"$\bullet$"]
 
 #one one side plot Cv
 color = colors_size[0]
-ax1.set_ylabel(r'Specific Heat per site $C_v/N$ ($\bullet$)', color='black', fontsize = 20)
+ax1.set_ylabel(r'$C_v/N$', color='black', fontsize = 10)
 #print data_thermo
 #print error_thermo
 for i in range(len(N_list)):
-	ax1.errorbar(all_temps[i], all_data_therm[i], yerr = all_error_therm[i] , color = color_all[i], linestyle = '-',marker = markers[0], markersize = 12)
+	ax1.errorbar(all_temps[i], all_data_therm[i], yerr = all_error_therm[i] , color = color_all[i], linestyle = '-', linewidth = 0.5, marker = markers[0], markersize = 2)
 
 Tmin = np.min(Tmin_l)
 Tmax = np.max(Tmax_l)
 #major_ticks = np.linspace(Tmin, Tmax, int((Tmax - Tmin)/0.1)+1)
 #minor_ticks = np.linspace(Tmin, Tmax, int((Tmax - Tmin)/0.05)+1)
-major_ticks = np.arange(Tmin, Tmax + 0.01, 0.1)
+major_ticks = np.arange(Tmin, Tmax + 0.01, 0.2)
 minor_ticks = np.arange(Tmin, Tmax + 0.01, 0.05)
 
-ax1.tick_params(axis='y', labelcolor='black', labelsize = 16)
+minor_ticks_y_1 = np.arange(0, 10, 1)
+minor_ticks_y_2 = np.arange(0, 14, 1)
+
+ax1.tick_params(axis='y', labelcolor='black', labelsize = 10)
 ax1.set_xticks(major_ticks)
 tick_print = []
 for elem in major_ticks:
-    tick_print.append('{:.1f}'.format(elem))
+    tick_print.append('${:.1f}$'.format(elem))
 ax1.set_xticks(minor_ticks, minor=True)
-ax1.set_xticklabels(tick_print, rotation=315, fontsize = 16)
-ax1.set_xlabel(r'$T$', fontsize = 20)
-ax1.xaxis.set_label_coords(1.06, -0.02)
+ax1.set_xticklabels(tick_print, fontsize = 10)
+ax1.set_yticks(minor_ticks_y_1, minor = True)
+#ax1.set_xlabel(r'$T$', fontsize = 10)
+#ax1.xaxis.set_label_coords(1.06, -0.02)
 ax1.grid(which='minor', alpha=0.2)
-ax1.grid(which='major', alpha=0.5)
+ax1.grid(which='major', alpha=0.4)
 
 
-ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
+#ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
+
+ax2 = plt.subplot(2,1,2, sharex = ax1)
 
 #plot rho
 color = colors_size[1]
-ax2.set_ylabel(r'Spin Stiffness $\rho$ ($\star$)', color='black', fontsize = 20)
+#ax1.set_xlabel(r'$T$', fontsize = 10)
+ax2.set_xlabel(r'$T/J$', fontsize = 10)
+ax2.set_ylabel(r'Spin stiffness $\rho$', color='black', fontsize = 10)
 for i in range(len(N_list)):
-	ax2.errorbar(all_temps[i], all_data_stiff[i], yerr = all_error_stiff[i],	 color = color_all[i], linestyle = '-', marker = markers[1], markersize = 12)
-ax2.tick_params(axis='y', labelcolor='black', labelsize = 16)
+	ax2.errorbar(all_temps[i], all_data_stiff[i], yerr = all_error_stiff[i], color = color_all[i], linestyle = '-', linewidth = 0.5, marker = markers[1], markersize = 2)
+ax2.tick_params(axis='y', labelcolor='black', labelsize = 10)
+ax2.set_yticks(minor_ticks_y_2, minor= True)
+ax2.grid(which='minor', alpha=0.2)
+ax2.grid(which='major', alpha=0.4)
 
 patches_lg = []
 for i in range(len(N_list)):
-    patches_lg.append(patches.Patch(color=color_all[i], label='L='+str(int(N_list[i]))))
-ax1.legend(handles=patches_lg, bbox_to_anchor=(0,-0.12,1,0.2), loc="lower left",
-                mode="expand", borderaxespad=0, ncol=4,fontsize = 20)
+    #patches_lg.append(patches.Patch(color=color_all[i], linewidth = 0.1, linestyle = '-', fill = True, label='L='+str(int(N_list[i]))))
+    patches_lg.append(Line2D([0], [0], color=color_all[i], linewidth = 1, linestyle = '-', label='$L='+str(int(N_list[i]))+'$') )
+
+#ax1.legend(handles=patches_lg, bbox_to_anchor=(0,-0.12,1,0.2), loc="upper right",
+                #mode="expand", borderaxespad=0, ncol=1,fontsize = 10)
+ax1.legend(handles=patches_lg,  loc="upper center", ncol=1, fontsize = 9)
 
 #put the dotted lines for the
 ylimits = [1, 10]
-ax1.plot([rho_temp, rho_temp], ylimits, color = 'black', linestyle = '--')
-ax1.plot([cv_max_temp_final, cv_max_temp_final], ylimits, color = 'black', linestyle = '--')
-ax1.set_ylim(ylimits)
+ax1.plot([cv_max_temp_final, cv_max_temp_final], ylimits, color = 'red', linestyle = '--', linewidth = 1)
+ax1.plot([rho_temp, rho_temp], ylimits, color = (102/256, 45/256, 145/256), linestyle = '--', linewidth = 1)
+ylimits = [0, 13]
+ax2.plot([rho_temp, rho_temp], ylimits, color = (102/256, 45/256, 145/256), linestyle = '--', linewidth = 1)
+ax2.plot([cv_max_temp_final, cv_max_temp_final], ylimits, color = 'red', linestyle = '--', linewidth = 1)
+
+#ax1.set_ylim(ylimits)
 
 #add the text
 
-textstr = r'nematic'
-ax2.text(0.07, 0.05, textstr, transform=ax2.transAxes, fontsize=20,
-    verticalalignment='top', bbox= dict(boxstyle='square', fc="w", ec="k"))
-textstr = r'hexatic'
-ax2.text(0.45, 0.05, textstr, transform=ax2.transAxes, fontsize=20,
-    verticalalignment='top', bbox= dict(boxstyle='square', fc="w", ec="k"))
-textstr = r'disordered'
-ax2.text(0.8, 0.05, textstr, transform=ax2.transAxes, fontsize=20,
-    verticalalignment='top', bbox= dict(boxstyle='square', fc="w", ec="k"))
+# textstr = r'nematic'
+# ax2.text(0.07, 0.05, textstr, transform=ax2.transAxes, fontsize=10,
+#     verticalalignment='top', bbox= dict(boxstyle='square', fc="w", ec="k"))
+# textstr = r'hexatic'
+# ax2.text(0.45, 0.05, textstr, transform=ax2.transAxes, fontsize=10,
+#     verticalalignment='top', bbox= dict(boxstyle='square', fc="w", ec="k"))
+# textstr = r'disordered'
+# ax2.text(0.8, 0.05, textstr, transform=ax2.transAxes, fontsize=10,
+#     verticalalignment='top', bbox= dict(boxstyle='square', fc="w", ec="k"))
 
 
 #####
@@ -274,7 +293,7 @@ def fit_func_2(xrange_l, a, b):
     return b*(xrange_l) + a
 
 
-popt2, pcov2 = curve_fit(fit_func_2, x_range_log, np.log(cross_2),     sigma = cross_2_err/cross_2, absolute_sigma = True, bounds = ([0.1, 0.05], [20, 1.5]))
+popt2, pcov2 = curve_fit(fit_func_2, x_range_log, np.log(cross_2), sigma = cross_2_err/cross_2, absolute_sigma = True, bounds = ([0.1, 0.05], [20, 1.5]))
 
 #print 'vals of fit of max of Cv: a + L^b'
 #print popt2
@@ -284,62 +303,49 @@ e2 = np.sqrt(np.diag(pcov2))[1]
 print(popt2[1], np.sqrt(np.diag(pcov2))[1])
 y2  = np.exp(fit_func(x_range_log, *popt2))
 
-"""
-left, bottom, width, height = [0.67, 0.73, 0.23, 0.23]
-ax3 = fig.add_axes([left, bottom, width, height])
-ax3.set_ylabel(r'$C_v^{max}/N$', color='black')
-ax3.set_xlabel(r'$\ln \; L$', color='black')
-ax3.errorbar(x_range_log, cross_2, yerr = cross_2_err, color = 'black', marker = 'o', linestyle = '')
-ax3.plot(x_range_log, y2, color='black', linestyle = '--', label = r'$C_v^{max} \propto L^{\alpha/\nu}$')
-ax3.legend()
-"""
-
 fig.tight_layout()
-plt.savefig('./fig-lowD.png', format='png',dpi = 100, bbox_inches='tight')
-plt.show()
+plt.savefig('./fig-lowD.png', format='png',dpi = 600, bbox_inches='tight')
+#plt.show()
 #plt.savefig('./all_fig/' + 'rhoCvJ2{:.2f}'.format(j2)+ '.png', format='png', bbox_inches='tight')
 
 
-# In[5]:
-
-
-fig, ax3 = plt.subplots(figsize = (10,10))
-
-#####
-#add the inset of C_v scaling
-x_range_log = np.log(N_list)
-cross_2 = np.array(cv_result_max)
-cross_2_err = np.array(cv_result_max_err)
-cross_2_err_mod = cross_2_err/cross_2
-
-def fit_func(xrange_l, a, b):
-    return a + b*xrange_l
-
-def fit_func_2(xrange_l, a, b):
-    return b*(xrange_l) + a
-
-
-popt2, pcov2 = curve_fit(fit_func_2, x_range_log, np.log(cross_2),     sigma = cross_2_err/cross_2, absolute_sigma = True, bounds = ([0.1, 0.05], [20, 1.5]))
-
-#print 'vals of fit of max of Cv: a + L^b'
-#print popt2
-e2 = np.sqrt(np.diag(pcov2))[1]
-#print 'errors'
-#print np.sqrt(np.diag(pcov2))
-print(popt2[1], np.sqrt(np.diag(pcov2))[1])
-y2  = np.exp(fit_func(np.linspace(np.min(x_range_log), np.max(x_range_log), num = 20), *popt2))
-
-ax3.set_ylabel(r'$C_v^{max}/N$', color='black', fontsize = 20)
-ax3.set_xlabel(r'$\ln \; L$', color='black', fontsize = 20)
-ax3.tick_params(axis='x', labelcolor='black', labelsize = 20)
-ax3.tick_params(axis='y', labelcolor='black', labelsize = 20)
-ax3.errorbar(x_range_log, cross_2, yerr = cross_2_err, color = 'black', marker = 'o', linestyle = '')
-ax3.plot(np.linspace(np.min(x_range_log), np.max(x_range_log), num = 20), y2, color='black', linestyle = '--', label = r'$C_v^{max} \propto L^{\alpha/\nu}$')
-ax3.legend(fontsize = 20)
-
-fig.tight_layout()
-plt.savefig('./supp_smallDelta.png', format='png',dpi = 100, bbox_inches='tight')
-plt.show()
+# fig, ax3 = plt.subplots(figsize = (10,10))
+#
+# #####
+# #add the inset of C_v scaling
+# x_range_log = np.log(N_list)
+# cross_2 = np.array(cv_result_max)
+# cross_2_err = np.array(cv_result_max_err)
+# cross_2_err_mod = cross_2_err/cross_2
+#
+# def fit_func(xrange_l, a, b):
+#     return a + b*xrange_l
+#
+# def fit_func_2(xrange_l, a, b):
+#     return b*(xrange_l) + a
+#
+#
+# popt2, pcov2 = curve_fit(fit_func_2, x_range_log, np.log(cross_2),     sigma = cross_2_err/cross_2, absolute_sigma = True, bounds = ([0.1, 0.05], [20, 1.5]))
+#
+# #print 'vals of fit of max of Cv: a + L^b'
+# #print popt2
+# e2 = np.sqrt(np.diag(pcov2))[1]
+# #print 'errors'
+# #print np.sqrt(np.diag(pcov2))
+# print(popt2[1], np.sqrt(np.diag(pcov2))[1])
+# y2  = np.exp(fit_func(np.linspace(np.min(x_range_log), np.max(x_range_log), num = 20), *popt2))
+#
+# ax3.set_ylabel(r'$C_v^{max}/N$', color='black', fontsize = 20)
+# ax3.set_xlabel(r'$\ln \; L$', color='black', fontsize = 20)
+# ax3.tick_params(axis='x', labelcolor='black', labelsize = 20)
+# ax3.tick_params(axis='y', labelcolor='black', labelsize = 20)
+# ax3.errorbar(x_range_log, cross_2, yerr = cross_2_err, color = 'black', marker = 'o', linestyle = '')
+# ax3.plot(np.linspace(np.min(x_range_log), np.max(x_range_log), num = 20), y2, color='black', linestyle = '--', label = r'$C_v^{max} \propto L^{\alpha/\nu}$')
+# ax3.legend(fontsize = 20)
+#
+# fig.tight_layout()
+# plt.savefig('./supp_smallDelta.png', format='png',dpi = 100, bbox_inches='tight')
+# plt.show()
 
 
 # In[ ]:
