@@ -78,9 +78,9 @@ for i in range(len(list_of_everything)):
     else:
         col = 'teal'
 
-    patches_stiff.append(Circle((vals[0], vals[2]), radius=0.01, facecolor=col, edgecolor = 'black', linewidth = 0.5))
+    patches_stiff.append(Circle((vals[0], vals[2]), radius=0.01, facecolor=col, edgecolor = 'black', linewidth = 0.5, zorder = 4))
     #patches_cv.append(Circle((vals[0], vals[1]), radius=0.01, facecolor='red', edgecolor = 'black'))
-    patches_stiff2.append(Circle((vals[0], vals[2]), radius=0.01, facecolor=col, edgecolor = 'black', linewidth = 0.5))
+    patches_stiff2.append(Circle((vals[0], vals[2]), radius=0.01, facecolor=col, edgecolor = 'black', linewidth = 0.5, zorder = 4))
     #patches_cv2.append(Circle((vals[0], vals[1]), radius=0.01, facecolor='red', edgecolor = 'black'))
     range_J2.append(vals[0])
 
@@ -127,11 +127,11 @@ for j in range(len(range_J2)):
         maxcv = list_of_everything[j][1]
 
     if range_J2[j] <= 1.1:
-        patches_cv.append(Circle((range_J2[j], maxcv), radius=0.01, facecolor='red', edgecolor = 'black', linewidth = 0.5))
-        patches_cv2.append(Circle((range_J2[j], maxcv), radius=0.01, facecolor='red', edgecolor = 'black', linewidth = 0.5))
+        patches_cv.append(Circle((range_J2[j], maxcv), radius=0.01, facecolor='red', edgecolor = 'black', linewidth = 0.5, zorder = 5))
+        patches_cv2.append(Circle((range_J2[j], maxcv), radius=0.01, facecolor='red', edgecolor = 'black', linewidth = 0.5, zorder = 5))
     else:
-        patches_cv.append(Rectangle((range_J2[j]- 0.01, maxcv - 0.01), 0.01, 0.01, facecolor='red', edgecolor = 'black', linewidth = 0.5))
-        patches_cv2.append(Rectangle((range_J2[j] - 0.01, maxcv - 0.01), 0.01, 0.01, facecolor='red', edgecolor = 'black', linewidth = 0.5))
+        patches_cv.append(Rectangle((range_J2[j]- 0.01, maxcv - 0.01), 0.01, 0.01, facecolor='red', edgecolor = 'black', linewidth = 0.5, zorder = 5))
+        patches_cv2.append(Rectangle((range_J2[j] - 0.01, maxcv - 0.01), 0.01, 0.01, facecolor='red', edgecolor = 'black', linewidth = 0.5, zorder = 5))
 
     if 0.85 <= range_J2[j] <= 1.1:
         iyC.append(maxcv)
