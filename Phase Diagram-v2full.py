@@ -103,6 +103,7 @@ for i in range(len(list_of_everything)):
 range_J2 = np.array(range_J2)
 
 
+
 N_cp = 40
 Kc = 0.0
 
@@ -152,6 +153,10 @@ clb = plt.colorbar(im, shrink=0.65)
 clb.ax.tick_params(labelsize=9)
 # #clb.ax.set_title(r'$C_v/N$', fontsize = 12)
 clb.ax.set_title(r'$\log \, C_v$', fontsize = 9)
+
+print(f'Potts (\Delta, T_3) = ({fP_x}, {fP}).')
+print(f'KT hexatic (\Delta, T_6) = ({fKT1_x}, {fKT1}).')
+print(f'KT nematic (\Delta, T_2) = ({fKT2_x}, {fKT2}).')
 
 
 ax.plot(fP_x, fP, color = 'red', linewidth=0.5)
