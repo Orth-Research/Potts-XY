@@ -177,6 +177,9 @@ def scaledata3(l, rho, a, da, rho_c, nu, zeta, omega, acst, omega2, acst2):
     x = (1.0/(1.0 + acst2 * np.power(l_mesh, - omega2) ) ) * np.power(l_mesh, 1. / nu) * (rho_mesh - rho_c)
     y = (1.0/(1.0 + acst * np.power(l_mesh, - omega) ) ) * np.power(l_mesh, - zeta / nu) * a
     dy = (1.0/(1.0 + acst * np.power(l_mesh, - omega) ) ) * np.power(l_mesh, - zeta / nu) * da
+    
+    #y = (1.0/(1.0 + acst * np.power(l_mesh, - omega) ) ) * np.power(l_mesh, - zeta ) * a
+    #dy = (1.0/(1.0 + acst * np.power(l_mesh, - omega) ) ) * np.power(l_mesh, - zeta) * da
 
     return ScaledData(x, y, dy)
 
