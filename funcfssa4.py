@@ -61,7 +61,10 @@ class ScaledData(namedtuple('ScaledData', ['x', 'y', 'dy'])):
     # http://docs.python.org/3/library/collections.html#namedtuple-factory-function-for-tuples-with-named-fields
     __slots__ = ()
 
-def scaledata3(l, rho, a, da, rho_c, nu, zeta, omega, acst, omega2, acst2):
+def scaledata4(l, rho, a, da, omega, acst, omega2, acst2):
+    rho_c = 1.205
+    nu = 5/6
+    zeta = 1/3
     r'''
     Scale experimental data according to critical exponents
 
@@ -161,8 +164,6 @@ def scaledata3(l, rho, a, da, rho_c, nu, zeta, omega, acst, omega2, acst2):
 
     # rho_c should be float
     rho_c = float(rho_c)
-    
-    print(rho_c)
 
     # rho_c should be in range
     if rho_c > rho.max() or rho_c < rho.min():
@@ -179,9 +180,6 @@ def scaledata3(l, rho, a, da, rho_c, nu, zeta, omega, acst, omega2, acst2):
     x = (1.0/(1.0 + acst2 * np.power(l_mesh, - omega2) ) ) * np.power(l_mesh, 1. / nu) * (rho_mesh - rho_c)
     y = (1.0/(1.0 + acst * np.power(l_mesh, - omega) ) ) * np.power(l_mesh, - zeta / nu) * a
     dy = (1.0/(1.0 + acst * np.power(l_mesh, - omega) ) ) * np.power(l_mesh, - zeta / nu) * da
-    
-    #y = (1.0/(1.0 + acst * np.power(l_mesh, - omega) ) ) * np.power(l_mesh, - zeta ) * a
-    #dy = (1.0/(1.0 + acst * np.power(l_mesh, - omega) ) ) * np.power(l_mesh, - zeta) * da
 
     return ScaledData(x, y, dy)
 
@@ -512,7 +510,9 @@ def _neldermead_errors(sim, fsim, fun):
     return np.sqrt(np.diag(varco)), varco
 
 
-def autoscale3(l, rho, a, da, rho_c0, nu0, zeta0, omega0, acst0, omega20, acst20, x_bounds=None, **kwargs):
+def autoscale4(l, rho, a, da, omega0, acst0, omega20, acst20, x_bounds=None, **kwargs):
+    
+    (rho_c0, nu0, zeta0) = (1.205, 5/6, 1/3)
     """
     Automatically scale finite-size data and fit critical point and exponents
 
@@ -608,8 +608,8 @@ def autoscale3(l, rho, a, da, rho_c0, nu0, zeta0, omega0, acst0, omega20, acst20
     """
 
     def goal_function(x):
-        my_x, my_y, my_dy = scaledata3(
-            rho=rho, l=l, a=a, da=da, rho_c=x[0], nu=x[1], zeta=x[2], omega = x[3], acst = x[4], omega2 = x[5], acst2 = x[6]
+        my_x, my_y, my_dy = scaledata4(
+            rho=rho, l=l, a=a, da=da, omega = x[0], acst = x[1], omega2 = x[2], acst2 = x[3]
         )
         return quality(
             my_x, my_y, my_dy, x_bounds=x_bounds,
@@ -617,7 +617,7 @@ def autoscale3(l, rho, a, da, rho_c0, nu0, zeta0, omega0, acst0, omega20, acst20
 
     ret = scipy.optimize.minimize(
         goal_function,
-        [rho_c0, nu0, zeta0, omega0, acst0, omega20, acst20],
+        [omega0, acst0, omega20, acst20],
         method='Nelder-Mead',
         options={
             'xtol': 1e-4,
@@ -633,7 +633,7 @@ def autoscale3(l, rho, a, da, rho_c0, nu0, zeta0, omega0, acst0, omega20, acst20
 
     ret['varco'] = varco
     ret['errors'] = errors
-    ret['rho'], ret['nu'], ret['zeta'], ret['omega'], ret['acst'], ret['omega2'], ret['acst2'] = ret['x']
-    ret['drho'], ret['dnu'], ret['dzeta'], ret['domega'], ret['dacst'], ret['domega2'], ret['dacst2']= ret['errors']
+    ret['omega'], ret['acst'], ret['omega2'], ret['acst2'] = ret['x']
+    ret['domega'], ret['dacst'], ret['domega2'], ret['dacst2']= ret['errors']
 
     return ret
