@@ -35,8 +35,7 @@ Tmax_plot = 1.6
 Tmin = 0.6
 
 
-fig, ax = plt.subplots(figsize = (3.4, 2.72) )
-#fig, ax = plt.subplots(figsize = (2.5, 1.3) )
+fig, ax = plt.subplots(figsize = (2.5, 1.3) )
 #lambda = 0 KT points
 tkt = 0.89
 
@@ -66,7 +65,7 @@ fKT1_x = []
 fKT2 = []
 fKT2_x = []
 
-radius_val = 0.005
+radius = 0.015
 
 for i in range(len(list_of_everything)):
     vals = list_of_everything[i]
@@ -77,7 +76,7 @@ for i in range(len(list_of_everything)):
 
     #patches_stiff.append(Circle((vals[0], vals[2]), radius=0.005, facecolor=col, edgecolor = 'black', zorder =5))
     #patches_stiff2.append(Circle((vals[0], vals[2]), radius=0.005, facecolor=col, edgecolor = 'black', zorder = 5))
-    patches_stiff2.append(Circle((vals[0], vals[2]), radius=radius_val, facecolor=col, edgecolor = 'black', linewidth = 0.5, zorder = 5))
+    patches_stiff2.append(Ellipse((vals[0], vals[2]), width=radius/2, height = radius, facecolor=col, edgecolor = 'black', linewidth = 0.5, zorder = 5))
     range_J2.append(vals[0])
 
     if 0.85 <= vals[0] <= 1.15:
@@ -123,7 +122,7 @@ for j in range(len(range_J2)):
         maxcv = list_of_everything[j][1]
 
     if range_J2[j] <= 1.15:
-        patches_cv2.append(Circle((range_J2[j], maxcv), radius = radius_val, facecolor='red', edgecolor = 'black', linewidth = 0.5, zorder = 6))
+        patches_cv2.append(Ellipse((range_J2[j], maxcv), width=radius/2, height = radius, facecolor='red', edgecolor = 'black', linewidth = 0.5, zorder = 6))
         #patches_cv2.append(Circle((range_J2[j], maxcv), radius=0.005, facecolor='red', edgecolor = 'black', zorder = 6))
     else:
         #not used here
@@ -159,10 +158,10 @@ plt.xlabel('$\Delta$', fontsize=9);
 plt.ylabel('$T/J$', fontsize=9)
 
 #ticks
-major_ticks_x = np.arange(0.8, 1.15 + 0.01, 0.05)
-minor_ticks_x = np.arange(0.8, 1.15 + 0.01, 0.025)
-major_ticks_y = np.arange(1.05, 1.3 + 0.01, 0.05)
-minor_ticks_y = np.arange(1.05, 1.3 + 0.01, 0.025)
+major_ticks_x = np.arange(0.8, 1.15 + 0.01, 0.1)
+minor_ticks_x = np.arange(0.8, 1.15 + 0.01, 0.05)
+major_ticks_y = np.arange(1.05, 1.3 + 0.01, 0.1)
+minor_ticks_y = np.arange(1.05, 1.3 + 0.01, 0.05)
 
 tick_print_x = []
 for elem in major_ticks_x:
@@ -215,7 +214,7 @@ for ps in patches_cv2:
 
 #ax.indicate_inset_zoom(axins)
 
-#ax.set_aspect(0.5)
+ax.set_aspect(0.5)
 
 
 plt.tight_layout()

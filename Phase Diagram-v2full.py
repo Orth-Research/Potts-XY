@@ -34,7 +34,7 @@ Tmax = 1.6
 Tmax_plot = 1.6
 Tmin = 0.6
 
-figure_size = (3., 3.)
+figure_size = (3.4, 3.4)
 fig = plt.figure(figsize = figure_size)
 
 print(figure_size)
@@ -152,7 +152,7 @@ im = ax.imshow(gridplot_cv, interpolation='spline16', cmap='YlGn',origin='lower'
 clb = plt.colorbar(im, shrink=0.65)
 clb.ax.tick_params(labelsize=9)
 # #clb.ax.set_title(r'$C_v/N$', fontsize = 12)
-clb.ax.set_title(r'$\log \, C_v$', fontsize = 9)
+clb.ax.set_title(r'$\log \, c_v$', fontsize = 9)
 
 print(f'Potts (\Delta, T_3) = ({fP_x}, {fP}).')
 print(f'KT hexatic (\Delta, T_6) = ({fKT1_x}, {fKT1}).')
