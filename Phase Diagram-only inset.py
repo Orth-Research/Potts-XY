@@ -159,14 +159,14 @@ plt.xlabel('$\Delta$', fontsize=9);
 plt.ylabel('$T/J$', fontsize=9)
 
 #ticks
-major_ticks_x = np.arange(0.8, 1.15 + 0.01, 0.05)
-minor_ticks_x = np.arange(0.8, 1.15 + 0.01, 0.025)
+major_ticks_x = np.arange(0.80, 1.15 + 0.01, 0.05)
+minor_ticks_x = np.arange(0.80, 1.15 + 0.01, 0.025)
 major_ticks_y = np.arange(1.05, 1.3 + 0.01, 0.05)
 minor_ticks_y = np.arange(1.05, 1.3 + 0.01, 0.025)
 
 tick_print_x = []
 for elem in major_ticks_x:
-    tick_print_x.append('${:.1f}$'.format(elem))
+    tick_print_x.append('${:.2f}$'.format(elem))
 
 tick_print_y = []
 for elem in major_ticks_y:
