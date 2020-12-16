@@ -48,7 +48,7 @@ color_ocker = (0.6631400000000001, 0.71, 0.1491)
 color_pink = (0.71, 0.1491, 0.44730000000000003)
 color_brown = (0.651, 0.33331200000000005, 0.054683999999999955)
 
-color_all = [color_red, color_orange, color_green, color_blue, color_purple, color_ocker,color_pink, color_brown]
+color_all = [color_red, color_orange, color_green, color_blue,color_brown, color_pink,color_purple, color_ocker]
 
 
 
@@ -142,8 +142,9 @@ cv_max_temp_final = cv_max_temp[0]
 ######
 #get rho intercept
 ######
-rho_temp = range_temp[np.argmin(np.absolute(data_stiff - 18*range_temp/np.pi))]
-
+#rho_temp = range_temp[np.argmin(np.absolute(data_stiff - 18*range_temp/np.pi))]
+# override T_6 by 1.35, which we obtain using larger values of L
+rho_temp=1.35
 
 #####
 #compute cv_max values
@@ -194,18 +195,20 @@ colors_size = [scalarMap.to_rgba(i/(len(N_list)-1)) for i in range(len(N_list))]
 
 
 fig = plt.figure(figsize = (3.375, 2*2.086) )
-ax1 = plt.subplot(2,1,1)
+# move ax1 to be the lower plot in the column
+ax2 = plt.subplot(2,1,1)#, sharex = ax1)
+ax1 = plt.subplot(2,1,2,  sharex = ax2)
 
 #markers = [r"$\bullet$", r"$\star$"]
 markers = [r"$\bullet$", r"$\bullet$"]
 
 #one one side plot Cv
 color = colors_size[0]
-ax1.set_ylabel(r'$C_v/N$', color='black', fontsize = 10)
+ax1.set_ylabel(r'$c$', color='black', fontsize = 10)
 #print data_thermo
 #print error_thermo
 for i in range(len(N_list)):
-	ax1.errorbar(all_temps[i], all_data_therm[i], yerr = all_error_therm[i] , color = color_all[i], linestyle = '-', linewidth = 0.5, marker = markers[0], markersize = 2)
+	ax1.errorbar(all_temps[i], all_data_therm[i], yerr = all_error_therm[i] , color = color_all[i+1], linestyle = '-', linewidth = 0.5, marker = markers[0], markersize = 2)
 
 Tmin = np.min(Tmin_l)
 Tmax = np.max(Tmax_l)
@@ -233,15 +236,13 @@ ax1.grid(which='major', alpha=0.4)
 
 #ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 
-ax2 = plt.subplot(2,1,2, sharex = ax1)
-
 #plot rho
 color = colors_size[1]
 #ax1.set_xlabel(r'$T$', fontsize = 10)
-ax2.set_xlabel(r'$T/J$', fontsize = 10)
+ax1.set_xlabel(r'$T/J$', fontsize = 10)
 ax2.set_ylabel(r'Spin stiffness $\rho$', color='black', fontsize = 10)
 for i in range(len(N_list)):
-	ax2.errorbar(all_temps[i], all_data_stiff[i], yerr = all_error_stiff[i], color = color_all[i], linestyle = '-', linewidth = 0.5, marker = markers[1], markersize = 2)
+	ax2.errorbar(all_temps[i], all_data_stiff[i], yerr = all_error_stiff[i], color = color_all[i+1], linestyle = '-', linewidth = 0.5, marker = markers[1], markersize = 2)
 ax2.tick_params(axis='y', labelcolor='black', labelsize = 10)
 ax2.set_yticks(minor_ticks_y_2, minor= True)
 ax2.grid(which='minor', alpha=0.2)
@@ -250,19 +251,19 @@ ax2.grid(which='major', alpha=0.4)
 patches_lg = []
 for i in range(len(N_list)):
     #patches_lg.append(patches.Patch(color=color_all[i], linewidth = 0.1, linestyle = '-', fill = True, label='L='+str(int(N_list[i]))))
-    patches_lg.append(Line2D([0], [0], color=color_all[i], linewidth = 1, linestyle = '-', label='$L='+str(int(N_list[i]))+'$') )
+    patches_lg.append(Line2D([0], [0], color=color_all[i+1], linewidth = 1, linestyle = '-', label='$L='+str(int(N_list[i]))+'$') )
 
 #ax1.legend(handles=patches_lg, bbox_to_anchor=(0,-0.12,1,0.2), loc="upper right",
                 #mode="expand", borderaxespad=0, ncol=1,fontsize = 10)
-ax1.legend(handles=patches_lg,  loc="upper center", ncol=1, fontsize = 9)
+ax2.legend(handles=patches_lg,  loc="lower center", ncol=1, fontsize = 9)
 
 #put the dotted lines for the
 ylimits = [1, 10]
-ax1.plot([cv_max_temp_final, cv_max_temp_final], ylimits, color = 'red', linestyle = '--', linewidth = 1)
+ax1.plot([cv_max_temp_final, cv_max_temp_final], ylimits, color = color_all[0], linestyle = '--', linewidth = 1)
 ax1.plot([rho_temp, rho_temp], ylimits, color = (102/256, 45/256, 145/256), linestyle = '--', linewidth = 1)
 ylimits = [0, 13]
 ax2.plot([rho_temp, rho_temp], ylimits, color = (102/256, 45/256, 145/256), linestyle = '--', linewidth = 1)
-ax2.plot([cv_max_temp_final, cv_max_temp_final], ylimits, color = 'red', linestyle = '--', linewidth = 1)
+ax2.plot([cv_max_temp_final, cv_max_temp_final], ylimits, color = color_all[0], linestyle = '--', linewidth = 1)
 
 #ax1.set_ylim(ylimits)
 
