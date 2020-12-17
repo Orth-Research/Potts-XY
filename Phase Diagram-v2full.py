@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
 from __future__ import division
+from __future__ import print_function
 import numpy as np
 from numpy.random import rand
 from numpy import linalg as LA
@@ -36,8 +35,8 @@ Tmin = 0.6
 
 figure_size = (3.4, 3.4)
 fig = plt.figure(figsize = figure_size)
-
-print(figure_size)
+#fig = plt.figure()
+#print(figure_size)
 
 ax = plt.subplot(1,1,1)
 #lambda = 0 KT points
@@ -139,6 +138,14 @@ for j in range(len(range_J2)):
 
     if range_J2[j] <= 1.1:
         fP.append(maxcv)
+        
+#adding second peaks
+second_peaks = [57, 55, 50, 46, 43, 39];
+for m in range(6):
+    maxcv2 = range_T[second_peaks[m]]
+    patches_cv.append(Rectangle((range_J2[m]- 0.01, maxcv2 - 0.01), 0.01, 0.01, facecolor='red', edgecolor = 'black', linewidth = 0.5, zorder = 5))
+
+        
 
 ixB = np.array(ixB)[::-1]
 ixC = np.array(ixC)
@@ -154,9 +161,9 @@ clb.ax.tick_params(labelsize=9)
 # #clb.ax.set_title(r'$C_v/N$', fontsize = 12)
 clb.ax.set_title(r'$\log \, c_v$', fontsize = 9)
 
-print(f'Potts (\Delta, T_3) = ({fP_x}, {fP}).')
-print(f'KT hexatic (\Delta, T_6) = ({fKT1_x}, {fKT1}).')
-print(f'KT nematic (\Delta, T_2) = ({fKT2_x}, {fKT2}).')
+#print(f'Potts (\Delta, T_3) = ({fP_x}, {fP}).')
+#print(f'KT hexatic (\Delta, T_6) = ({fKT1_x}, {fKT1}).')
+#print(f'KT nematic (\Delta, T_2) = ({fKT2_x}, {fKT2}).')
 
 
 ax.plot(fP_x, fP, color = 'red', linewidth=0.5)
@@ -231,7 +238,7 @@ ax.set_ylim([0.6, 1.6])
 #ax.indicate_inset_zoom(axins)
 
 plt.tight_layout()
-#plt.savefig('./fig-phasediagram2-cv.png', format='png',dpi = 100, bbox_inches='tight')
+plt.show()
 plt.savefig('./fig-phasediagram2-logcv.png', format='png',dpi = 600, bbox_inches='tight')
 
 
