@@ -1,3 +1,51 @@
+[![Paper](https://img.shields.io/badge/paper-arXiv%3A2102.11288-B31B1B.svg)](https://arxiv.org/abs/2102.11288)
+<!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4553595.svg)](https://doi.org/) -->
+
+
+# Emergent Potts Order in a Coupled Hexatic-Nematic XY model
+[Victor Drouin-Touchette](https://github.com/vdrouint), [Peter P. Orth](https://faculty.sites.iastate.edu/porth/), Piers Coleman, Premala Chandra, Tom Lubensky
+
+### Abstract
+Addressing the nature of an unexpected smectic-A’ phase in liquid crystal 54COOBC films, we
+perform large scale Monte Carlo simulations of a coupled hexatic-nematic XY model. The resulting
+finite-temperature phase diagram reveals a small region with composite Potts Z<sub>3</sub> order above the
+vortex binding transition; this phase is characterized by relative hexatic-nematic ordering though
+both variables are disordered. The system develops algebraic hexatic and nematic order only at a
+lower temperature. This multi-step melting scenario agrees well with the experimental observations
+of a sharp specific heat anomaly that emerges above the onset of hexatic positional order. We
+therefore propose that the smectic-A’ phase is characterized by composite Potts order and bound-
+states of fractional vortices
+
+### Description
+This repository includes the Monte-Carlo code that was used to obtain the data, the jackknife error analysis, as well as information, scripts, and data to generate the figures in the paper.
+
+
+### Monte Carlo routine
+
+Details on the specific Monte Carlo routine are presented in the paper. 
+
+### Figures
+
+#### Zero Coupling Phase Diagram
+This is Fig. 3 in the paper. 
+<!-- <img src="https://github.com/Orth-Research/Potts-XY/blob/master/plots/blablabla.png" width="400px"> -->
+
+
+### Support
+This work was supported by Grant
+No. DE-SC0020353 (P. Chandra) and Grant No. DE-FG02-
+99ER45790 (P. Coleman and V.D.T.), all funded by the U.S. Depart-
+ment of Energy (DOE), Office of Science, Basic Energy
+Sciences, Division of Materials Sciences and Engineer-
+ing. V.D.T. is thankful for the support of the Fonds de
+Recherche Quebecois en Nature et Technologie. Part of
+the research (P.P.O.) was performed at the Ames Labo-
+ratory, which is operated for the U.S. DOE by Iowa State
+University under Contract DE-AC02-07CH11358. Computational resources were provided by the Rutgers University Beowulf cluster.
+
+<!-- [<img width="100px" src="https://www.nasa.gov/sites/all/themes/custom/nasatwo/images/nasa-logo.svg">](https://www.nasa.gov/offices/education/programs/national/epscor/home/index.html) -->
+
+
 # Potts-XY
 
 Plotting iPython notebooks for the Potts-XY project.
