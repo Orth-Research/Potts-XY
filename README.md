@@ -22,14 +22,14 @@ This repository includes the Monte-Carlo code that was used to obtain the data, 
 
 ### Monte Carlo routine
 
-Details on the specific Monte Carlo routine are presented in the paper. The code can be found in the **MC_routine** folder. It was written on Python. We use a specifically adapted Wolff algorithm, tailored for coupled XY models. We also use a parallel tempering routine where <img src="https://render.githubusercontent.com/render/math?math= N_t"> temperatures between <img src="https://render.githubusercontent.com/render/math?math= T_{max}"> and <img src="https://render.githubusercontent.com/render/math?math= T_{min}">, on <img src="https://render.githubusercontent.com/render/math?math= N_c"> cores. This code was made to run on parallelize cluster environments.
+Details on the specific Monte Carlo routine are presented in the paper. The code can be found in the **MC_routine** folder. It was written on Python. We use a specifically adapted Wolff algorithm, tailored for coupled XY models. We also use a parallel tempering routine where Nt> temperatures between Tmax and Tmin, on Nc cores. This code was made to run on parallelize cluster environments.
 
 ```
 python mcptdoublel.py 10 1.0 2.1 Nt Nc Tmax Tmin
 
 ```
 
-where <img src="https://render.githubusercontent.com/render/math?math= L=10">, <img src="https://render.githubusercontent.com/render/math?math= \Delta = 1.0"> and <img src="https://render.githubusercontent.com/render/math?math= \lambda = 2.1"> are the parameters of the simulation one wants to do. This uses the file *functions_mcstep3.py* where the functions used for the Monte-Carlo sampling are found.
+where L=10, Delta=1.0 and lambda = 2.1 are the parameters of the simulation one wants to do. This uses the file *functions_mcstep3.py* where the functions used for the Monte-Carlo sampling are found.
 
 Then, using
 
@@ -61,7 +61,7 @@ Phase-Diagram-lambda0.py
 
 #### Finite Coupling Phase Diagram
 
-<img src="https://github.com/Orth-Research/Potts-XY/blob/master/Figures/Figure_04.png" width="400px"> 
+<img src="https://github.com/Orth-Research/Potts-XY/blob/master/Figures/Figure_04.png" width="800px"> 
 
 This is Fig. 4 in the paper. This is obtained using
 
@@ -82,7 +82,7 @@ Plot_low_Delta.py
 
 #### Delta = 1 Thermodynamics
 
-<img src="https://github.com/Orth-Research/Potts-XY/blob/master/Figures/Figure_06.png" width="400px"> 
+<img src="https://github.com/Orth-Research/Potts-XY/blob/master/Figures/Figure_06.png" width="800px"> 
 
 This is Fig. 6 in the paper. Subfigures (a) and (b) are obtained with 
 
@@ -124,7 +124,7 @@ Energy_Binder.py
 
 #### Finite Coupling Phase Diagram
 
-<img src="https://github.com/Orth-Research/Potts-XY/blob/master/Figures/Figure_App_2.png" width="400px"> 
+<img src="https://github.com/Orth-Research/Potts-XY/blob/master/Figures/Figure_App_02.png" width="400px"> 
 
 This is Fig. 2 of the appendix in the paper. This is obtained using
 
@@ -144,9 +144,9 @@ the research (P.P.O.) was performed at the Ames Labo-
 ratory, which is operated for the U.S. DOE by Iowa State
 University under Contract DE-AC02-07CH11358. Computational resources were provided by the Rutgers University Beowulf cluster.
 
-[<img width="100px" src="logos/rutgers.png">]
-[<img width="100px" src="logos/doe.jpg">]
-[<img width="100px" src="logos/FRQNT_RGB.png">]
+<img width="200px" src="logos/rutgers.png">
+<img width="80px" src="logos/doe.jpg">
+<img width="200px" src="logos/FRQNT_RGB.png">
 
 
 
