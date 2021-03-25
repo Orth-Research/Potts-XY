@@ -1,4 +1,4 @@
-[![Paper](https://img.shields.io/badge/paper-arXiv%3A2102.11288-B31B1B.svg)](https://arxiv.org/abs/2102.11288)
+[![Paper](https://img.shields.io/badge/paper-arXiv%3A2102.11288-B31B1B.svg)](https://arxiv.org/abs/2103.01878)
 <!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4553595.svg)](https://doi.org/) -->
 
 
@@ -135,20 +135,14 @@ compare_magnetizations_obs.py
 ### Support
 This work was supported by Grant
 No. DE-SC0020353 (P. Chandra) and Grant No. DE-FG02-
-99ER45790 (P. Coleman and V.D.T.), all funded by the U.S. Depart-
-ment of Energy (DOE), Office of Science, Basic Energy
-Sciences, Division of Materials Sciences and Engineer-
-ing. V.D.T. is thankful for the support of the Fonds de
-Recherche Quebecois en Nature et Technologie. Part of
-the research (P.P.O.) was performed at the Ames Labo-
-ratory, which is operated for the U.S. DOE by Iowa State
+99ER45790 (P. Coleman and V.D.T.), all funded by the U.S. Department of Energy (DOE), Office of Science, Basic Energy
+Sciences, Division of Materials Sciences and Engineering. V.D.T. is thankful for the support of the Fonds de
+Recherche Quebecois en Nature et Technologie. Part of the research (P.P.O.) was performed at the Ames Laboratory, which is operated for the U.S. DOE by Iowa State
 University under Contract DE-AC02-07CH11358. Computational resources were provided by the Rutgers University Beowulf cluster.
 
 <img width="200px" src="logos/rutgers.png">
 <img width="80px" src="logos/doe.jpg">
 <img width="200px" src="logos/FRQNT_RGB.png">
-
-
 
 
 ### Note: Order of data
