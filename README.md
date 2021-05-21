@@ -1,5 +1,6 @@
 [![Paper](https://img.shields.io/badge/paper-arXiv%3A2103.01878-B31B1B.svg)](https://arxiv.org/abs/2103.01878)
 <!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4553595.svg)](https://doi.org/) -->
+[![DOI](https://zenodo.org/badge/280268256.svg)](https://zenodo.org/badge/latestdoi/280268256)
 
 
 # Emergent Potts Order in a Coupled Hexatic-Nematic XY model
